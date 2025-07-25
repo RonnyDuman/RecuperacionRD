@@ -27,3 +27,7 @@ def listaSitios(request):
 def listaSitiosT(request):
     sitios = SitioTuristico.objects.all()
     return render(request, 'principal.html', {'sitios': sitios})
+
+#Definimos la funcion MostrarSitios
+def mostrarSitio(request):
+    return render(request, 'crear.html')
