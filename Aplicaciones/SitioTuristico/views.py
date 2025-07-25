@@ -184,3 +184,9 @@ def cerrar_sesion(request):
 def sesionInicada(request):
     correo = request.POST.get('correoUsuario')
     password = request.POST.get('passwordUsuario')
+
+    try:
+        # Busca el usuario por correo electrónico
+        usuario = Usuario.objects.get(email=correo)
+        if check_password(password, usuario.contraseña):
+            request.session['usuario_id'] = usuario.id
