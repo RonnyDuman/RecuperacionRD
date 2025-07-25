@@ -311,3 +311,10 @@ def enviar_imagen_telegram(request):
                 f"https://api.telegram.org/bot{token}/sendMessage",
                 data={'chat_id': chat_id, 'text': 'Estos son las últimas estadisiticas de los sitios turisticos.'}
             )
+             # Se envía la primera imagen
+             files1 = {'photo': (imagen1.name, imagen1.read())}
+             r1 = requests.post(
+                f"https://api.telegram.org/bot{token}/sendPhoto",
+                data={'chat_id': chat_id},
+                files=files1
+            )
