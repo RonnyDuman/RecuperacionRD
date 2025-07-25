@@ -78,3 +78,12 @@ def editarSitio(request, pk):
 #Definimos la funcion procesarEdicionSitio
 def procesarEdicionSitio(request, pk):
     sitio = get_object_or_404(SitioTuristico, pk=pk)
+
+    # Asignar los nuevos valores de los campos básicos del formulario al objeto sitio
+    sitio.pais = request.POST.get('pais')
+    sitio.nombre = request.POST.get('nombre')
+    sitio.descripcion = request.POST.get('descripcion')
+    sitio.requiere_visa = request.POST.get('requiere_visa') == 'True'
+    sitio.fecha_fundacion = request.POST.get('fecha_fundacion')
+    sitio.email_contacto = request.POST.get('email_contacto')
+    sitio.telefono_contacto = request.POST.get('telefono_contacto')
