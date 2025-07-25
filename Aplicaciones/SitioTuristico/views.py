@@ -249,3 +249,6 @@ def verify_email(request):
             email = request.session.get('email')
             contraseña = request.session.get('contraseña')
             nombre = request.session.get('nombre')
+            
+            # Verifica si el usuario ya existe
+            if not Usuario.objects.filter(email=email).exists():
