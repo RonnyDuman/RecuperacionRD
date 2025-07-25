@@ -225,3 +225,9 @@ def registro(request):
         [email],
         fail_silently=False,
     )
+
+    # Guarda los datos en sesión para usarlos luego en la verificación
+    request.session['verification_code'] = verification_code
+    request.session['email'] = email
+    request.session['contraseña'] = contraseña
+    request.session['nombre'] = nombre
