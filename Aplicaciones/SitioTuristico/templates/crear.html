@@ -82,3 +82,159 @@
         </div>
     </div>
 </div>
+
+
+
+{% endblock %}
+
+
+{% block scripts %}
+
+
+<!-- 1. jQuery -->
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+<!-- 2. jQuery Validation -->
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/additional-methods.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/localization/messages_es.min.js"></script>
+
+
+
+<!-- 7. Bootstrap FileInput -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.5.4/css/fileinput.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.5.4/js/fileinput.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.5.4/js/locales/es.min.js"></script>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+    $.validator.addMethod("filesize", function (value, element, param) {
+        return this.optional(element) || (element.files[0].size <= param);
+    }, "El archivo es demasiado grande.");
+
+    $.validator.addMethod("maxDate", function (value, element) {
+        var today = new Date();
+        var inputDate = new Date(value);
+        return inputDate <= today;
+    }, "La fecha no puede ser posterior al día de hoy.");
+</script>
+
+<script>
+    $(document).ready(function () {
+        $("#agregar").validate({
+            rules: {
+                pais: { required: true, minlength: 3, maxlength: 100 },
+                nombre: { required: true, minlength: 3, maxlength: 200 },
+                descripcion: { required: true, minlength: 10 },
+                requiere_visa: { required: true },
+                foto_principal: {
+                    required: true,
+                    extension: "jpg|jpeg|png",
+                    filesize: 1048576
+                },
+                foto_secundaria: {
+                    required: true,
+                    extension: "jpg|jpeg|png",
+                    filesize: 1048576
+                },
+                historia_pdf: {
+                    required: true,
+                    extension: "pdf",
+                    filesize: 2097152
+                },
+                fecha_fundacion: {
+                    required: true,
+                    maxDate: true
+                },
+                email_contacto: {
+                    required: true,
+                    email: true
+                },
+                telefono_contacto: {
+                    required: true,
+                    minlength: 7,
+                    maxlength: 20
+                }
+            },
+            messages: {
+                pais: {
+                    required: "Por favor, ingrese el país.",
+                    minlength: "Por favor, el nombre debe tener al menos 3 caracteres.",
+                    maxlength: "Por favor, el nombre no debe exceder 100 caracteres."
+                },
+                nombre: {
+                    required: "Por favor, ingrese el nombre del sitio.",
+                    minlength: "Por favor, el nombre debe tener al menos 3 caracteres.",
+                    maxlength: "Por favor, el nombre no debe exceder 200 caracteres."
+                },
+                descripcion: {
+                    required: "Por favor, proporcione una descripción.",
+                    minlength: "Por favor, use al menos 10 caracteres."
+                },
+                requiere_visa: "Por favor, seleccione si requiere visa.",
+                foto_principal: {
+                    required: "Por favor, seleccione una fotografía principal.",
+                    extension: "Por favor, suba una imagen en formato JPG, JPEG o PNG.",
+                    filesize: "Por favor, la imagen no debe superar 1MB."
+                },
+                foto_secundaria: {
+                    required: "Por favor, seleccione una fotografía secundaria.",
+                    extension: "Por favor, suba una imagen en formato JPG, JPEG o PNG.",
+                    filesize: "Por favor, la imagen no debe superar 1MB."
+                },
+                historia_pdf: {
+                    required: "Por favor, seleccione la historai en PDF.",
+                    extension: "Por favor, suba un archivo en formato PDF.",
+                    filesize: "Por favor, el archivo PDF no debe superar 2MB."
+                },
+                fecha_fundacion: {
+                    required: "Por favor, seleccione la fecha de fundación.",
+                    maxDate: "Por favor, la fecha no puede ser posterior al día de hoy."
+                },
+                email_contacto: {
+                    required: "Por favor, ingrese un correo de contacto.",
+                    email: "Por favor, ingrese un correo válido."
+                },
+                telefono_contacto: {
+                    required: "Por favor, ingrese un número de contacto.",
+                    minlength: "Por favor, el número debe tener al menos 7 dígitos.",
+                    maxlength: "Por favor, el número no debe exceder 20 caracteres."
+                }
+            },
+            errorClass: "text-danger",
+            errorElement: "small"
+        });
+    });
+</script>
+
+<script>
+    $("#foto_principal").fileinput({
+        language: "es",
+        allowedFileExtensions: ["png", "jpg", "jpeg"],
+        showCaption: false,
+        dropZoneEnabled: true,
+        showClose: false
+    });
+    
+    $("#foto_secundaria").fileinput({
+        language: "es",
+        allowedFileExtensions: ["png", "jpg", "jpeg"],
+        showCaption: false,
+        dropZoneEnabled: true,
+        showClose: false
+    });
+    
+    $("#historia_pdf").fileinput({
+        language: "es",
+        allowedFileExtensions: ["pdf"],
+        showCaption: false,
+        dropZoneEnabled: true,
+        showClose: false
+    });
+</script>
+
+
+{% endblock %}
