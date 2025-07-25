@@ -209,32 +209,35 @@ def registro(request):
        email = request.POST.get('email')
        contraseña = request.POST.get('contraseña')
 
-    # Solo se permiten correos que terminen en @gmail.com
-    if not email.endswith('@gmail.com'):
-        messages.error(request, 'Solo se permiten correos @gmail.com')
-        return render(request, 'principal.html', {'show_register': True})
+       # Solo se permiten correos que terminen en @gmail.com
+       if not email.endswith('@gmail.com'):
+          messages.error(request, 'Solo se permiten correos @gmail.com')
+          return render(request, 'principal.html', {'show_register': True})
     
-    # Generación de un código de verificación de 6 dígitos
-    verification_code = random.randint(100000, 999999)
+       # Generación de un código de verificación de 6 dígitos
+       verification_code = random.randint(100000, 999999)
 
-    # Envío del código al correo electrónico ingresado
-    send_mail(
-        'Código de Verificación',
-        f'Tu código de verificación es: {verification_code}',
-        settings.DEFAULT_FROM_EMAIL,
-        [email],
-        fail_silently=False,
-    )
+         # Envío del código al correo electrónico ingresado
+       send_mail(
+          'Código de Verificación',
+          f'Tu código de verificación es: {verification_code}',
+          settings.DEFAULT_FROM_EMAIL,
+          [email],
+          fail_silently=False,
+        )
 
-    # Guarda los datos en sesión para usarlos luego en la verificación
-    request.session['verification_code'] = verification_code
-    request.session['email'] = email
-    request.session['contraseña'] = contraseña
-    request.session['nombre'] = nombre
+       # Guarda los datos en sesión para usarlos luego en la verificación
+       request.session['verification_code'] = verification_code
+       request.session['email'] = email
+       request.session['contraseña'] = contraseña
+       request.session['nombre'] = nombre
 
-    # Notifica al usuario que el código fue enviado
-    messages.success(request, 'Se ha enviado un código de verificación a tu correo electrónico.')
-    return redirect('verify_email')
+       # Notifica al usuario que el código fue enviado
+       messages.success(request, 'Se ha enviado un código de verificación a tu correo electrónico.')
+       return redirect('verify_email')
 
      # Si no es POST, carga el formulario con el registro visible
     return render(request, 'login.html', {'show_register': True})
+
+# Definimos la funcion verify_email
+def verify_email(request):
