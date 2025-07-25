@@ -168,3 +168,9 @@ def IniciarSesion(request):
             usuario = Usuario.objects.get(email=correo, contraseña=clave)
             request.session['usuario_id'] = usuario.id
             return redirect('lista')
+       
+       except Usuario.DoesNotExist:
+            # Si el usuario no existe, muestra un mensaje de error
+            messages.error(request, "Correo o contraseña incorrectos.")
+
+    return redirect('inicio')
