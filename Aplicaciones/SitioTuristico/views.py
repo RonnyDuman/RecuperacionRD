@@ -121,3 +121,7 @@ def procesarEdicionSitio(request, pk):
 
     # Redireccionar a la vista que lista los sitios turísticos
     return redirect('lista')
+
+#Definimos la funcion eliminarSitio
+def eliminarSitio(request, pk):
+    sitio = get_object_or_404(SitioTuristico, pk=pk)
