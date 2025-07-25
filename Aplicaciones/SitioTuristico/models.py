@@ -17,3 +17,9 @@ class SitioTuristico(models.Model):
 
     def __str__(self):
         return self.nombre
+
+#Creamos el modelo Usuario
+class Usuario(models.Model):
+    nombre = models.CharField(max_length=150)
+    email = models.EmailField(unique=True)
+    contraseña = models.CharField(max_length=128)
