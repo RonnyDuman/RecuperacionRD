@@ -91,7 +91,10 @@ def procesarEdicionSitio(request, pk):
     # Procesar actualización de la foto principal si se ha enviado una nueva
     nueva_foto_principal = request.FILES.get('foto_principal')
     if nueva_foto_principal:
-        
-         # Eliminar el archivo anterior si existe físicamente en el sistema
+
+        # Eliminar el archivo anterior si existe físicamente en el sistema
         if sitio.foto_principal and os.path.isfile(sitio.foto_principal.path):
             os.remove(sitio.foto_principal.path)
+
+        # Asignar la nueva imagen
+        sitio.foto_principal = nueva_foto_principal
