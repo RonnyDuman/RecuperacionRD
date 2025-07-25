@@ -201,3 +201,6 @@ def sesionInicada(request):
         messages.error(request, 'Correo no registrado')
 
     return redirect('inicio')
+
+# Definimos la funcion registro
+def registro(request):
