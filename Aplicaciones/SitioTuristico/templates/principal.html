@@ -1,0 +1,97 @@
+
+{% extends 'plantillaSesionIniciada.html'%}
+    
+
+
+{% block content %}
+
+<a href="{% url 'mostrarCrear' %}" class="btn btn-success">
+    <i class="fa-solid fa-plus"></i> Agregar Sitio Turístico
+</a>
+<a href="{% url 'dashboard' %}" class="btn btn-info">
+    <i class="fas fa-chart-line"></i> Dashboard
+</a>
+
+
+<div class="table-responsive">
+    <table id="tabla-sitios" class="table table-striped table-bordered align-middle">
+        <thead class="table table-dark">
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>País</th>
+                <th>¿Requiere Visa?</th>
+                <th>Fundación</th>
+                <th>Contacto</th>
+                <th>imágenes</th>
+                <th>Hisotoria</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for sitio in sitios %}
+            <tr>
+                <td>{{ sitio.id }}</td>
+                <td>{{ sitio.nombre }}</td>
+                <td>{{ sitio.pais }}</td>
+                <td>{{ sitio.requiere_visa|yesno:"Sí,No" }}</td>
+                <td>{{ sitio.fecha_fundacion }}</td>
+                <td>
+                    {{ sitio.email_contacto }}<br>
+                    {{ sitio.telefono_contacto }}
+                </td>
+                <td style="max-width: 150px;">
+                    {% if sitio.foto_principal or sitio.foto_secundaria %}
+                    <div id="carousel-{{ sitio.id }}" class="carousel slide" data-bs-ride="carousel">
+                        <div class="carousel-inner">
+                            {% if sitio.foto_principal %}
+                            <div class="carousel-item active">
+                                <img src="{{ sitio.foto_principal.url }}" class="d-block w-100" style="height:150px; object-fit:cover;" alt="Foto Principal">
+                            </div>
+                            {% endif %}
+                            {% if sitio.foto_secundaria %}
+                            <div class="carousel-item {% if not sitio.foto_principal %}active{% endif %}">
+                                <img src="{{ sitio.foto_secundaria.url }}" class="d-block w-100" style="height:150px; object-fit:cover;" alt="Foto Secundaria">
+                            </div>
+                            {% endif %}
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carousel-{{ sitio.id }}" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon"></span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carousel-{{ sitio.id }}" data-bs-slide="next">
+                            <span class="carousel-control-next-icon"></span>
+                        </button>
+                    </div>
+                    {% else %}
+                        No tiene imágenes
+                    {% endif %}
+                </td>
+
+                <td style="min-width: 250px;">
+                    {% if sitio.historia_pdf %}
+                        <a href="{{ sitio.historia_pdf.url }}" download class="btn btn-sm btn-success mt-2">Descargar PDF</a>
+                    {% else %}
+                        No tiene documento
+                    {% endif %}
+                </td>
+
+                <td>
+
+                    <a href="{% url 'mostrarEditar' sitio.id %}" class="btn btn-primary btn-sm mb-1">
+                        <i class="fa-solid fa-pen-to-square"></i> Editar
+                    </a>
+                    <a href="{% url 'eliminar' sitio.id %}" class="btn btn-danger btn-sm delete-button">
+                        <i class="fa-solid fa-trash"></i> Eliminar
+                    </a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="7" class="text-center">
+                    No hay sitios turísticos registrados.
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
