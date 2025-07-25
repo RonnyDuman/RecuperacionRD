@@ -115,3 +115,6 @@ def procesarEdicionSitio(request, pk):
 
         # Guardar los cambios realizados al objeto sitio en la base de datos
     sitio.save()
+
+        # Mostrar un mensaje de éxito al usuario
+    messages.success(request, '¡El sitio turístico se actualizó correctamente!')
