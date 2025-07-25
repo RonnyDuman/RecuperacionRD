@@ -174,3 +174,8 @@ def IniciarSesion(request):
             messages.error(request, "Correo o contraseña incorrectos.")
 
     return redirect('inicio')
+
+# Definimos la funcion cerrar_sesion
+def cerrar_sesion(request):
+    request.session.flush()
+    return redirect('inicio')
