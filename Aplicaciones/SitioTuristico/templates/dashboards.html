@@ -3,3 +3,192 @@
 {% block content %}
 {{ top5|json_script:"top5-data" }}
 {{ todos|json_script:"todos-data" }}
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<style>
+    .dashboard-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 2rem;
+        padding: 2rem;
+        flex-wrap: wrap;
+    }
+
+    .chart-section {
+        flex: 1;
+        min-width: 300px;
+        background-color: #f4f6f8;
+        padding: 1rem;
+        border-radius: 12px;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+
+    .chart-section h3 {
+        font-weight: bold;
+        margin-bottom: 1rem;
+        color: #2c3e50;
+        font-size: 1.3rem;
+        display: flex;
+        align-items: center;
+    }
+
+    .chart-section h3 i {
+        margin-right: 8px;
+        color: #3498db;
+    }
+
+    canvas {
+        max-width: 80%;
+        height: auto;
+    }
+    
+</style>
+
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<div class="dashboard-container">
+
+    <!-- 📈 Línea -->
+    <div class="chart-section">
+        <h3><i class="fas fa-chart-line"></i> Sitios turísticos por país</h3>
+        <p>Este gráfico muestra el número total de sitios turísticos registrados por país en el sistema.</p>
+        <canvas id="lineChart"></canvas>
+    </div>
+
+    <!-- 🥧 Pie -->
+    <div class="chart-section">
+        <h3><i class="fas fa-chart-pie"></i> Top 5 países con más sitios</h3>
+        <p>Visualiza los 5 países con mayor número de sitios turísticos registrados.</p>
+        <canvas id="pieChart"></canvas>
+    </div>
+
+</div>
+<div class="d-flex justify-content-between align-items-center mt-3">
+  <!-- Botón Regresar a la izquierda -->
+  <a href="{% url 'lista' %}" class="btn btn-secondary">
+    <i class="fa-solid fa-arrow-left"></i> Regresar
+  </a>
+
+  <!-- Contenedor del input y botón alineados a la derecha -->
+  <div class="d-flex align-items-center gap-2">
+    <input type="text" id="chat_id_input" placeholder="Ingrese su Chat ID de Telegram" class="form-control" style="min-width: 250px;" />
+    <button class="btn btn-primary" onclick="enviarCapturasTelegram()">
+      <i class="fab fa-telegram-plane"></i> Enviar Capturas
+    </button>
+  </div>
+</div>
+
+
+
+</div>
+
+
+
+<script>
+const top5 = JSON.parse(document.getElementById('top5-data').textContent);
+const todos = JSON.parse(document.getElementById('todos-data').textContent);
+
+const pieData = {
+    labels: top5.map(item => item.pais),
+    datasets: [{
+        data: top5.map(item => item.total),
+        backgroundColor: ['#f39c12', '#e74c3c', '#8e44ad', '#2980b9', '#27ae60'],
+    }]
+};
+
+const lineData = {
+    labels: todos.map(item => item.pais),
+    datasets: [{
+        label: 'Sitios Registrados',
+        data: todos.map(item => item.total),
+        fill: false,
+        borderColor: '#3498db',
+        tension: 0.3
+    }]
+};
+
+new Chart(document.getElementById('pieChart'), {
+    type: 'pie',
+    data: pieData,
+});
+
+new Chart(document.getElementById('lineChart'), {
+    type: 'line',
+    data: lineData,
+});
+</script>
+
+<script>
+async function enviarCapturasTelegram() {
+    const chatId = document.getElementById('chat_id_input').value;
+
+    if (!chatId) {
+        Swal.fire({
+            title: '¡Error!',
+            text: 'Por favor ingrese su Chat ID de Telegram',
+            icon: 'error'
+        });
+        return;
+    }
+
+    const canvas1 = document.getElementById('lineChart');
+    const canvas2 = document.getElementById('pieChart');
+
+    if (!canvas1 || !canvas2) {
+        Swal.fire({
+            title: '¡Error!',
+            text: 'No se encontraron los gráficos.',
+            icon: 'error'
+        });
+        return;
+    }
+
+    try {
+        const blobs = await Promise.all([
+            new Promise(resolve => canvas1.toBlob(resolve, 'image/png')),
+            new Promise(resolve => canvas2.toBlob(resolve, 'image/png')),
+        ]);
+
+        const formData = new FormData();
+        formData.append('chat_id', chatId);
+        formData.append('imagen1', blobs[0], 'captura1.png');
+        formData.append('imagen2', blobs[1], 'captura2.png');
+
+        const response = await fetch('enviarImagenTelegram/', {
+            method: 'POST',
+            body: formData,
+        });
+
+        const result = await response.json();
+
+        if (result.status === 'success') {
+            Swal.fire({
+                title: '¡Éxito!',
+                text: 'Estadísticas enviadas con éxito!',
+                icon: 'success'
+            });
+        } else {
+            Swal.fire({
+                title: '¡Error!',
+                text: result.message || 'Error desconocido al enviar las imágenes.',
+                icon: 'error'
+            });
+        }
+    } catch (error) {
+        Swal.fire({
+            title: '¡Error!',
+            text: 'Error en la petición: ' + error.message,
+            icon: 'error'
+        });
+    }
+}
+</script>
+
+
+
+{% endblock %}
