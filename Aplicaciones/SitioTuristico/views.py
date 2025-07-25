@@ -290,9 +290,14 @@ def dashboard(request):
 @csrf_exempt
 # Definimos la funcion enviar_imagen_telegram
 def enviar_imagen_telegram(request):
-    
+
     # Vista para enviar imágenes y mensaje a un chat de Telegram usando el método POST
     if request.method == 'POST':
         chat_id = request.POST.get('chat_id')
         imagen1 = request.FILES.get('imagen1')
         imagen2 = request.FILES.get('imagen2')
+        
+        # Validación: todos los datos deben estar presentes
+        if not chat_id or not imagen1 or not imagen2:
+            messages.error(request, 'Faltan datos.')
+            return JsonResponse({'status': 'error', 'message': 'Faltan datos.'}, status=400)
