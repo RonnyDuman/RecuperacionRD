@@ -216,3 +216,12 @@ def registro(request):
     
     # Generación de un código de verificación de 6 dígitos
     verification_code = random.randint(100000, 999999)
+
+    # Envío del código al correo electrónico ingresado
+    send_mail(
+        'Código de Verificación',
+        f'Tu código de verificación es: {verification_code}',
+        settings.DEFAULT_FROM_EMAIL,
+        [email],
+        fail_silently=False,
+    )
