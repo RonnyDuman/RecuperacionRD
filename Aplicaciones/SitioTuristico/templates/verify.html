@@ -46,3 +46,26 @@
             border: 1px solid #f5c6cb;
         }
     </style>
+    
+
+</head>
+<body>
+    <div class="container">
+        <h2>Verificación de Correo</h2>
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+        <p>Por favor, ingresa el código de verificación que se ha enviado a tu correo electrónico.</p>
+        <form method="post" action="{% url 'verify_email' %}">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="verification_code">Código de verificación</label>
+                <input type="text" id="verification_code" name="verification_code" required>
+            </div>
+            <button type="submit" class="btn">Verificar</button>
+        </form>
+    </div>
+</body>
+</html>
