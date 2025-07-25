@@ -1,0 +1,84 @@
+{% extends 'plantillaSesionIniciada.html'%}
+    
+{% block content %}
+
+<!---->
+<!--Formulario para crear un nuevo sitio turístico con campos para datos básicos, fotos y archivos PDF, usando POST y CSRF token.-->
+<div class="container py-4 d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+    <div class="w-100" style="max-width: 600px;">
+        <div class="card shadow-sm">
+            <div class="card-header bg-success text-white text-center">
+                <h2 class="mb-0 py-2"><i class="fa-solid fa-plus"></i> Agregar Sitio Turístico</h2>
+            </div>
+            <div class="card-body px-4 py-4">
+
+                <form method="post" action="{% url 'ejecutarCrear' %}" enctype="multipart/form-data" id="agregar">
+                    {% csrf_token %}
+                    
+                    <div class="mb-3">
+                        <label for="pais" class="form-label">País:</label>
+                        <input type="text" name="pais" id="pais" class="form-control" required placeholder="Ej. Ecuador">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="nombre" class="form-label">Nombre:</label>
+                        <input type="text" name="nombre" id="nombre" class="form-control" required placeholder="Ej. Quilotoa">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="descripcion" class="form-label">Descripción:</label>
+                        <textarea name="descripcion" id="descripcion" class="form-control" rows="3" required></textarea>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="requiere_visa" class="form-label">¿Requiere Visa?</label>
+                        <select name="requiere_visa" id="requiere_visa" class="form-select" required>
+                            <option value="">Seleccione</option>
+                            <option value="True">Sí</option>
+                            <option value="False">No</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="foto_principal" class="form-label">Fotografía Principal:</label>
+                        <input type="file" name="foto_principal" id="foto_principal" class="form-control" accept="image/*" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="foto_secundaria" class="form-label">Fotografía Secundaria:</label>
+                        <input type="file" name="foto_secundaria" id="foto_secundaria" class="form-control" accept="image/*">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="historia_pdf" class="form-label">Historia PDF:</label>
+                        <input type="file" name="historia_pdf" id="historia_pdf" class="form-control" accept="application/pdf">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="fecha_fundacion" class="form-label">Fecha de Fundación:</label>
+                        <input type="date" name="fecha_fundacion" id="fecha_fundacion" class="form-control" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="email_contacto" class="form-label">Email de Contacto:</label>
+                        <input type="email" name="email_contacto" id="email_contacto" class="form-control" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="telefono_contacto" class="form-label">Teléfono de Contacto:</label>
+                        <input type="text" name="telefono_contacto" id="telefono_contacto" class="form-control" required>
+                    </div>
+
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-success">
+                            <i class="fa-solid fa-floppy-disk"></i> Guardar
+                        </button>
+                        <a href="{% url 'lista' %}" class="btn btn-secondary">
+                            <i class="fa-solid fa-arrow-left"></i> Cancelar
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
