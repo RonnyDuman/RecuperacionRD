@@ -74,3 +74,7 @@ def procesarCreacionSitio(request):
 def editarSitio(request, pk):
     sitio = get_object_or_404(SitioTuristico, pk=pk)
     return render(request, 'editar.html', {'sitio': sitio})
+
+#Definimos la funcion procesarEdicionSitio
+def procesarEdicionSitio(request, pk):
+    sitio = get_object_or_404(SitioTuristico, pk=pk)
