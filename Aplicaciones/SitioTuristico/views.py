@@ -296,8 +296,13 @@ def enviar_imagen_telegram(request):
         chat_id = request.POST.get('chat_id')
         imagen1 = request.FILES.get('imagen1')
         imagen2 = request.FILES.get('imagen2')
-        
+
         # Validación: todos los datos deben estar presentes
         if not chat_id or not imagen1 or not imagen2:
             messages.error(request, 'Faltan datos.')
             return JsonResponse({'status': 'error', 'message': 'Faltan datos.'}, status=400)
+        
+        # Token del bot de Telegram (debería usarse de forma segura)
+        token =  "7992982183:AAH2kYLicJ5zM6NrAYExc_IowviLRJ723zo"
+
+        try:
