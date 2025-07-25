@@ -127,5 +127,9 @@ def eliminarSitio(request, pk):
     sitio = get_object_or_404(SitioTuristico, pk=pk)
 
 # Verifica si existe una foto principal asociada y la elimina del sistema de archivos
-if sitio.foto_principal and os.path.isfile(sitio.foto_principal.path):
-    os.remove(sitio.foto_principal.path)
+    if sitio.foto_principal and os.path.isfile(sitio.foto_principal.path):
+     os.remove(sitio.foto_principal.path)
+
+     # Verifica si existe una foto secundaria asociada y la elimina del sistema de archivos
+    if sitio.foto_secundaria and os.path.isfile(sitio.foto_secundaria.path):
+     os.remove(sitio.foto_secundaria.path)
