@@ -18,3 +18,7 @@ from django.http import JsonResponse
 import json
 
 # Create your views here.
+
+#Definimos la funcion listaSitios
+def listaSitios(request):
+    return render(request, 'index.html')
