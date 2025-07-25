@@ -267,3 +267,6 @@ def verify_email(request):
         else:
             messages.error(request, 'Código de verificación incorrecto. Intenta de nuevo.')
     return render(request, 'verify.html')
+
+# Definimos la funcion dashboard
+def dashboard(request):
