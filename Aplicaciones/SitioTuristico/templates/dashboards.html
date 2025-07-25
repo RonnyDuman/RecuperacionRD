@@ -1,0 +1,5 @@
+{% extends 'plantillaSesionIniciada.html'%}
+
+{% block content %}
+{{ top5|json_script:"top5-data" }}
+{{ todos|json_script:"todos-data" }}
