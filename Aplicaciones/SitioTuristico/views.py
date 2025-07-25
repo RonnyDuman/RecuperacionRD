@@ -133,3 +133,6 @@ def eliminarSitio(request, pk):
      # Verifica si existe una foto secundaria asociada y la elimina del sistema de archivos
     if sitio.foto_secundaria and os.path.isfile(sitio.foto_secundaria.path):
      os.remove(sitio.foto_secundaria.path)
+     # Verifica si existe un archivo PDF asociado y lo elimina del sistema de archivos
+    if sitio.historia_pdf and os.path.isfile(sitio.historia_pdf.path):
+     os.remove(sitio.historia_pdf.path)
