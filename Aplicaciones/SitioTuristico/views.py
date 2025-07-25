@@ -1,3 +1,20 @@
 from django.shortcuts import render
+from django.shortcuts import get_object_or_404, redirect
+from .models import SitioTuristico
+import os
+from django.contrib import messages
+from .models import Usuario
+from django.contrib.auth.hashers import make_password, check_password
+import random
+from django.core.mail import send_mail
+from django.conf import settings
+from django.db.models import Count
+import base64
+from io import BytesIO
+from PIL import Image
+import requests
+from django.views.decorators.csrf import csrf_exempt
+from django.http import JsonResponse
+import json
 
 # Create your views here.
