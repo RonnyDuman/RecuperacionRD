@@ -145,3 +145,9 @@ def eliminarSitio(request, pk):
 
     # Redirecciona al listado de sitios turísticos
     return redirect('lista')
+
+#VISTAS PARA EL INCIO DE SESION
+
+#Definimos la funcion preserntarLogin
+def preserntarLogin(request):
+    return render(request, 'login.html')
