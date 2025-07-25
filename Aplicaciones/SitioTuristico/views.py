@@ -213,3 +213,6 @@ def registro(request):
     if not email.endswith('@gmail.com'):
         messages.error(request, 'Solo se permiten correos @gmail.com')
         return render(request, 'principal.html', {'show_register': True})
+    
+    # Generación de un código de verificación de 6 dígitos
+    verification_code = random.randint(100000, 999999)
