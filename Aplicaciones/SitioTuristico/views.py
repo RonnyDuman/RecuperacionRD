@@ -179,3 +179,8 @@ def IniciarSesion(request):
 def cerrar_sesion(request):
     request.session.flush()
     return redirect('inicio')
+
+# Definimos la funcion sesionInicada
+def sesionInicada(request):
+    correo = request.POST.get('correoUsuario')
+    password = request.POST.get('passwordUsuario')
