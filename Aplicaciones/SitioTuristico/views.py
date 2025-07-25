@@ -51,3 +51,17 @@ def procesarCreacionSitio(request):
     fecha_fundacion = request.POST.get('fecha_fundacion')
     email_contacto = request.POST.get('email_contacto')
     telefono_contacto = request.POST.get('telefono_contacto')
+
+    # Crear una instancia del modelo SitioTuristico con los datos obtenidos
+    sitio = SitioTuristico(
+        pais=pais,
+        nombre=nombre,
+        descripcion=descripcion,
+        requiere_visa=requiere_visa,
+        foto_principal=foto_principal,
+        foto_secundaria=foto_secundaria,
+        historia_pdf=historia_pdf,
+        fecha_fundacion=fecha_fundacion,
+        email_contacto=email_contacto,
+        telefono_contacto=telefono_contacto
+    )
