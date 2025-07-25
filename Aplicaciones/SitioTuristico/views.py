@@ -118,3 +118,6 @@ def procesarEdicionSitio(request, pk):
 
         # Mostrar un mensaje de éxito al usuario
     messages.success(request, '¡El sitio turístico se actualizó correctamente!')
+
+    # Redireccionar a la vista que lista los sitios turísticos
+    return redirect('lista')
