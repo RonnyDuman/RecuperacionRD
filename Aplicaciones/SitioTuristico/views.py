@@ -270,3 +270,6 @@ def verify_email(request):
 
 # Definimos la funcion dashboard
 def dashboard(request):
+
+    # Agrupa los sitios por país y cuenta cuántos hay por cada uno
+    sitios_por_pais = SitioTuristico.objects.values('pais').annotate(total=Count('id')).order_by('-total')
