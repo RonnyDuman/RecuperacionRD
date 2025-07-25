@@ -318,3 +318,11 @@ def enviar_imagen_telegram(request):
                 data={'chat_id': chat_id},
                 files=files1
             )
+              # Se envía la segunda imagen
+             files2 = {'photo': (imagen2.name, imagen2.read())}
+             r2 = requests.post(
+                f"https://api.telegram.org/bot{token}/sendPhoto",
+                data={'chat_id': chat_id},
+                files=files2
+            )
+
