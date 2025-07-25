@@ -136,3 +136,6 @@ def eliminarSitio(request, pk):
      # Verifica si existe un archivo PDF asociado y lo elimina del sistema de archivos
     if sitio.historia_pdf and os.path.isfile(sitio.historia_pdf.path):
      os.remove(sitio.historia_pdf.path)
+
+     # Muestra un mensaje de éxito al usuario
+    messages.success(request, '¡El sitio turístico se eliminó correctamente!')
