@@ -98,3 +98,10 @@ def procesarEdicionSitio(request, pk):
 
         # Asignar la nueva imagen
         sitio.foto_principal = nueva_foto_principal
+        
+        # Procesar actualización de la foto secundaria si se ha enviado una nueva
+    nueva_foto_secundaria = request.FILES.get('foto_secundaria')
+    if nueva_foto_secundaria:
+        if sitio.foto_secundaria and os.path.isfile(sitio.foto_secundaria.path):
+            os.remove(sitio.foto_secundaria.path)
+        sitio.foto_secundaria = nueva_foto_secundaria
