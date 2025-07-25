@@ -22,3 +22,8 @@ import json
 #Definimos la funcion listaSitios
 def listaSitios(request):
     return render(request, 'index.html')
+
+#Definimos la funcion listaSitiosT
+def listaSitiosT(request):
+    sitios = SitioTuristico.objects.all()
+    return render(request, 'principal.html', {'sitios': sitios})
