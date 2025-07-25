@@ -157,3 +157,8 @@ def IniciarSesion(request):
    
 # Verifica si el formulario fue enviado mediante POST
     if request.method == 'POST':
+
+    # Obtiene los datos del formulario (correo y contraseña)
+     correo = request.POST['correoUsuario']  
+     clave = request.POST['passwordUsuario']
+     try:
