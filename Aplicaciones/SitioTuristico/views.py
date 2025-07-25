@@ -125,3 +125,7 @@ def procesarEdicionSitio(request, pk):
 #Definimos la funcion eliminarSitio
 def eliminarSitio(request, pk):
     sitio = get_object_or_404(SitioTuristico, pk=pk)
+
+# Verifica si existe una foto principal asociada y la elimina del sistema de archivos
+if sitio.foto_principal and os.path.isfile(sitio.foto_principal.path):
+    os.remove(sitio.foto_principal.path)
