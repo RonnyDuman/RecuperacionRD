@@ -154,3 +154,6 @@ def preserntarLogin(request):
 
 #Definimos la funcion IniciarSesion
 def IniciarSesion(request):
+   
+# Verifica si el formulario fue enviado mediante POST
+    if request.method == 'POST':
