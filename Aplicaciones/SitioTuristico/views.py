@@ -235,3 +235,6 @@ def registro(request):
     # Notifica al usuario que el código fue enviado
     messages.success(request, 'Se ha enviado un código de verificación a tu correo electrónico.')
     return redirect('verify_email')
+
+     # Si no es POST, carga el formulario con el registro visible
+    return render(request, 'login.html', {'show_register': True})
