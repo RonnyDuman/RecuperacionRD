@@ -38,3 +38,6 @@ def procesarCreacionSitio(request):
     pais = request.POST.get('pais')
     nombre = request.POST.get('nombre')
     descripcion = request.POST.get('descripcion')
+    
+    # Convertir el valor recibido de requiere_visa a booleano
+    requiere_visa = request.POST.get('requiere_visa') == 'True'
