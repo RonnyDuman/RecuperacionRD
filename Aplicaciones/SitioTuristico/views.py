@@ -231,3 +231,7 @@ def registro(request):
     request.session['email'] = email
     request.session['contraseña'] = contraseña
     request.session['nombre'] = nombre
+
+    # Notifica al usuario que el código fue enviado
+    messages.success(request, 'Se ha enviado un código de verificación a tu correo electrónico.')
+    return redirect('verify_email')
