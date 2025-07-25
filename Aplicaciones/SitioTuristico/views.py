@@ -159,6 +159,12 @@ def IniciarSesion(request):
     if request.method == 'POST':
 
     # Obtiene los datos del formulario (correo y contraseña)
-     correo = request.POST['correoUsuario']  
-     clave = request.POST['passwordUsuario']
-     try:
+       correo = request.POST['correoUsuario']  
+       clave = request.POST['passwordUsuario']
+
+       try:
+         
+        # Busca un usuario en la base de datos que coincida con el correo y la contraseña ingresados
+            usuario = Usuario.objects.get(email=correo, contraseña=clave)
+            request.session['usuario_id'] = usuario.id
+            return redirect('lista')
