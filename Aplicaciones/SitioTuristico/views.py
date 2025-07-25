@@ -204,3 +204,12 @@ def sesionInicada(request):
 
 # Definimos la funcion registro
 def registro(request):
+    if request.method == 'POST':
+       nombre = request.POST.get('nombre')
+       email = request.POST.get('email')
+       contraseña = request.POST.get('contraseña')
+
+    # Solo se permiten correos que terminen en @gmail.com
+    if not email.endswith('@gmail.com'):
+        messages.error(request, 'Solo se permiten correos @gmail.com')
+        return render(request, 'principal.html', {'show_register': True})
