@@ -31,3 +31,6 @@ def listaSitiosT(request):
 #Definimos la funcion MostrarSitios
 def mostrarSitio(request):
     return render(request, 'crear.html')
+
+#Definimos la funcion procesarCreacionSitio
+def procesarCreacionSitio(request):
