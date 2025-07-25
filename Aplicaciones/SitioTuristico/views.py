@@ -65,3 +65,12 @@ def procesarCreacionSitio(request):
         email_contacto=email_contacto,
         telefono_contacto=telefono_contacto
     )
+    sitio.save()
+    messages.success(request, '¡El sitio turístico se agregó correctamente!')
+
+    return redirect('lista')
+
+#Definimos la funcion editarSitio
+def editarSitio(request, pk):
+    sitio = get_object_or_404(SitioTuristico, pk=pk)
+    return render(request, 'editar.html', {'sitio': sitio})
