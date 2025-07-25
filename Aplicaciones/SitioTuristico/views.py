@@ -241,3 +241,11 @@ def registro(request):
 
 # Definimos la funcion verify_email
 def verify_email(request):
+    if request.method == 'POST':
+        verification_code = request.POST.get('verification_code')
+        
+        # Verifica si el código ingresado coincide con el de la sesión
+        if verification_code == str(request.session.get('verification_code')):
+            email = request.session.get('email')
+            contraseña = request.session.get('contraseña')
+            nombre = request.session.get('nombre')
