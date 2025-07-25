@@ -151,3 +151,6 @@ def eliminarSitio(request, pk):
 #Definimos la funcion preserntarLogin
 def preserntarLogin(request):
     return render(request, 'login.html')
+
+#Definimos la funcion IniciarSesion
+def IniciarSesion(request):
