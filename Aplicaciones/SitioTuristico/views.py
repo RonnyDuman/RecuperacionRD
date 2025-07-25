@@ -273,3 +273,6 @@ def dashboard(request):
 
     # Agrupa los sitios por país y cuenta cuántos hay por cada uno
     sitios_por_pais = SitioTuristico.objects.values('pais').annotate(total=Count('id')).order_by('-total')
+    
+    # Extrae los 5 países con más sitios registrados
+    top5 = sitios_por_pais[:5]
