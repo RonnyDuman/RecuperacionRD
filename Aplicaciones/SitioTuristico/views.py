@@ -332,7 +332,11 @@ def enviar_imagen_telegram(request):
                 return JsonResponse({'status': 'error', 'message': 'Error enviando imágenes a Telegram.'}, status=500)
 
         except Exception as e:
-            
+
             # En caso de error inesperado
             messages.error(request, f'Error inesperado: {str(e)}')
             return JsonResponse({'status': 'error', 'message': str(e)}, status=500)
+        
+    # Si el método no es POST, se retorna un error
+    messages.error(request, 'Método no permitido')
+    return JsonResponse({'status': 'error', 'message': 'Método no permitido'}, status=405)
