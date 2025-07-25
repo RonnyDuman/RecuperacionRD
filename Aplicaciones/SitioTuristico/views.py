@@ -190,3 +190,8 @@ def sesionInicada(request):
         usuario = Usuario.objects.get(email=correo)
         if check_password(password, usuario.contraseña):
             request.session['usuario_id'] = usuario.id
+            
+            return redirect('lista')
+        else:
+        # Si la contraseña no es correcta, muestra un mensaje de error
+             messages.error(request, 'Contraseña incorrecta')
