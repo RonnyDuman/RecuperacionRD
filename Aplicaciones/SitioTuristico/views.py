@@ -325,4 +325,10 @@ def enviar_imagen_telegram(request):
                 data={'chat_id': chat_id},
                 files=files2
             )
+              # Verifica que ambas imágenes se hayan enviado correctamente
+             if r1.status_code == 200 and r2.status_code == 200:
+                return JsonResponse({'status': 'success'})
+             else:
+                return JsonResponse({'status': 'error', 'message': 'Error enviando imágenes a Telegram.'}, status=500)
 
+        except Exception as e:
