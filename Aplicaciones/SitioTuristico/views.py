@@ -38,6 +38,11 @@ def procesarCreacionSitio(request):
     pais = request.POST.get('pais')
     nombre = request.POST.get('nombre')
     descripcion = request.POST.get('descripcion')
-    
+
     # Convertir el valor recibido de requiere_visa a booleano
     requiere_visa = request.POST.get('requiere_visa') == 'True'
+
+    # Obtener archivos subidos por el usuario desde el formulario (imágenes y PDF)
+    foto_principal = request.FILES.get('foto_principal')
+    foto_secundaria = request.FILES.get('foto_secundaria')
+    historia_pdf = request.FILES.get('historia_pdf')
