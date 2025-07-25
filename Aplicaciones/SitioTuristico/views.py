@@ -46,3 +46,8 @@ def procesarCreacionSitio(request):
     foto_principal = request.FILES.get('foto_principal')
     foto_secundaria = request.FILES.get('foto_secundaria')
     historia_pdf = request.FILES.get('historia_pdf')
+
+    # Otros campos del formulario
+    fecha_fundacion = request.POST.get('fecha_fundacion')
+    email_contacto = request.POST.get('email_contacto')
+    telefono_contacto = request.POST.get('telefono_contacto')
