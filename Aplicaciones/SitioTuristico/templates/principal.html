@@ -95,3 +95,38 @@
         </tbody>
     </table>
 </div>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const deleteButtons = document.querySelectorAll('.delete-button');
+
+  deleteButtons.forEach(button => {
+    button.addEventListener('click', function(event) {
+      event.preventDefault(); // Evita la acción por defecto (navegar al enlace)
+
+      const url = this.href;  // Obtiene la URL del enlace
+
+      Swal.fire({
+        title: '¿Estás seguro?',
+        text: "¡Esta acción no se puede deshacer!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'Sí, eliminar',
+        cancelButtonText: 'Cancelar'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          window.location.href = url;
+        }
+      });
+    });
+  });
+});
+</script>
+
+
+
+
+{% endblock %}
