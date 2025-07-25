@@ -112,3 +112,6 @@ def procesarEdicionSitio(request, pk):
         if sitio.historia_pdf and os.path.isfile(sitio.historia_pdf.path):
             os.remove(sitio.historia_pdf.path)
         sitio.historia_pdf = nuevo_pdf
+
+        # Guardar los cambios realizados al objeto sitio en la base de datos
+    sitio.save()
