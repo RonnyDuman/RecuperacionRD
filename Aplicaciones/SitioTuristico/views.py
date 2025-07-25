@@ -139,6 +139,9 @@ def eliminarSitio(request, pk):
 
      # Muestra un mensaje de éxito al usuario
     messages.success(request, '¡El sitio turístico se eliminó correctamente!')
-    
+
     # Elimina el objeto sitio de la base de datos
     sitio.delete()
+
+    # Redirecciona al listado de sitios turísticos
+    return redirect('lista')
