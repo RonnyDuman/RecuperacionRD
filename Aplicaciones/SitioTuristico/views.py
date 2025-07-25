@@ -279,3 +279,10 @@ def dashboard(request):
 
     # Lista completa de todos los países con su cantidad de sitios
     todos = sitios_por_pais
+    
+    # Se pasa la información al template
+    context = {
+        'top5': list(top5),
+        'todos': list(todos),
+    }
+    return render(request, 'dashboards.html', context)
