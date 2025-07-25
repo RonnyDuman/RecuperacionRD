@@ -306,3 +306,8 @@ def enviar_imagen_telegram(request):
         token =  "7992982183:AAH2kYLicJ5zM6NrAYExc_IowviLRJ723zo"
 
         try:
+             # Se envía un mensaje al chat especificado
+             requests.post(
+                f"https://api.telegram.org/bot{token}/sendMessage",
+                data={'chat_id': chat_id, 'text': 'Estos son las últimas estadisiticas de los sitios turisticos.'}
+            )
