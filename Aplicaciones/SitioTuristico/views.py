@@ -87,3 +87,7 @@ def procesarEdicionSitio(request, pk):
     sitio.fecha_fundacion = request.POST.get('fecha_fundacion')
     sitio.email_contacto = request.POST.get('email_contacto')
     sitio.telefono_contacto = request.POST.get('telefono_contacto')
+    
+    # Procesar actualización de la foto principal si se ha enviado una nueva
+    nueva_foto_principal = request.FILES.get('foto_principal')
+    if nueva_foto_principal:
