@@ -34,3 +34,7 @@ def mostrarSitio(request):
 
 #Definimos la funcion procesarCreacionSitio
 def procesarCreacionSitio(request):
+     # Obtener los datos enviados desde el formulario mediante POST
+    pais = request.POST.get('pais')
+    nombre = request.POST.get('nombre')
+    descripcion = request.POST.get('descripcion')
